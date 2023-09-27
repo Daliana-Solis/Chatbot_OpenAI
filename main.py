@@ -27,22 +27,21 @@ class ChatbotWindow(QMainWindow):
         self.button.setGeometry(500,340,100,40) #area from side, top, width, height
         self.button.clicked.connect(self.send_message) #When user presses enter
 
-
-
+        #Show on window
         self.show()
 
 
     def send_message(self):
         user_input = self.input_field.text().strip() #Get what user typed
         self.chat_window.append(f"<p style='color:#333333'>Me: {user_input}</p>") #Show on chat window
-        self.input_field.clear() #Clear input area from text
+        self.input_field.clear() #Clear input area from text after sending/entering
 
         #Create thread
         thread = threading.Thread(target=self.get_bot_response, args=(user_input, ))
         thread.start()
 
     def get_bot_response(self, user_input):
-        response = self.chatbot.get_response(user_input) #Ask Chatbot user_input
+        response = self.chatbot.get_response(user_input) #Chatbot reply to user
         self.chat_window.append(f"<p style='color:#333333; background-color:#E9E9E9'>Bot: {response}")
 
 
